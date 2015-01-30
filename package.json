@@ -1,0 +1,28 @@
+{
+  "name": "spectools-fixtures",
+  "version": "1.0.0",
+  "description": "Fixtures for spec-related tests.",
+  "main": "index.js",
+  "scripts": {
+      "test": "mocha -u tdd ./test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spectools/spectools-fixtures"
+  },
+  "keywords": [
+    "spec"
+  ],
+  "author": "Tobie Langel <tobie.langel@gmail.com>",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/spectools/spectools-fixtures/issues"
+  },
+  "homepage": "https://github.com/spectools/spectools-fixtures",
+  "dependencies": {
+    "jsdom": "1.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^1.21.5"
+  }
+}
