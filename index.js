@@ -156,3 +156,48 @@ function filepath(filename) {
     var fp = path.join(__dirname, "fixtures", filename);
     return fp.replace(/\.html$/, "") + ".html";
 }
+
+var http = require("http");
+//var fs = require("fs");
+var MIME_TYPES = {
+    "html": "text/html",
+    "txt": "text/plain",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "js": "text/javascript",
+    "css": "text/css"
+};
+
+var DEFAULT_MIME_TYPE = MIME_TYPES.txt;
+
+function stream(fp, res) {
+    var m = fp.match(/\.([a-z]+)$/i);
+    var mt = m ? MIME_TYPES[m[1].toLowerCase()] : DEFAULT_MIME_TYPE;
+    res.writeHead(200, { "Content-Type": mt });
+    fs.createReadStream(fp).pipe(res);
+}
+
+module.exports.serve = serve;
+function serve(options) {
+    options = options || {};
+    return http.createServer(function (req, res) {
+        var url = req.url.substr(1);
+        var fp = path.join(__dirname, "fixtures", url);
+        fs.stat(fp, function(err, stat) {
+            if (err || !stat.isFile()) {
+                fp = filepath(url);
+                fs.stat(fp, function(err, stat) {
+                    if (err || !stat.isFile()) {
+                        res.writeHead(404);
+                        res.end();
+                    } else {
+                        stream(fp, res);
+                    }
+                });
+            } else {
+                stream(fp, res);
+            }
+        });
+    }).listen(options.port || 3000, options.host || "127.0.0.1");
+}
