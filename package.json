@@ -1,10 +1,10 @@
 {
   "name": "spectools-fixtures",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fixtures for spec-related tests.",
   "main": "index.js",
   "scripts": {
-      "test": "mocha -u tdd ./test/*.js"
+    "test": "mocha -u tdd ./test/*.js"
   },
   "repository": {
     "type": "git",
